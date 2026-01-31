@@ -17,19 +17,20 @@ A monolithic file often leads to:
 2.  **Conflicting instructions:** Mixing behavioral rules with static knowledge can confuse priority.
 3.  **Tool noise:** Multiple vendor-specific folders (`.claude/`, `.gemini/`, `.cursor/`) clutter the root directory.
 
-## The solution: The `.agents/` standard
+## The solution: Organization via `AGENTS.md`
 
-This standard separates concerns into a router file and a context directory.
+The **dotagents** standard is a philosophy of organization. It proposes using a slim `AGENTS.md` file in your project root to act as a **router**, directing agents to deeper context only when they need it.
 
-1.  **`AGENTS.md` (Router):** A minimal root file acting as an index and behavioral gatekeeper.
-2.  **`.agents/` (Context):** A structured, hidden directory for deep context, retrieved only when referenced.
+While you can organize your project context however you like, we recommend using a hidden `.agents/` directory to keep your root clean and provide a predictable structure for different types of agent data.
 
-### Directory structure
+### Recommended directory structure
+
+This structure is a starting point—feel free to adapt it to your project's needs.
 
 ```text
 .
-├── AGENTS.md             # Entry point & router
-└── .agents/              # Context directory
+├── AGENTS.md             # Entry point & router (Required)
+└── .agents/              # Recommended context directory
     ├── rules/            # Invariant behavioral guidelines
     │   ├── coding.md     # e.g. "No `any` types"
     │   └── comms.md      # e.g. "Be concise"
@@ -41,7 +42,7 @@ This standard separates concerns into a router file and a context directory.
     ├── memory/           # Persistent project knowledge (read/write)
     │   ├── decisions.md  # ADRs (why we chose X over Y)
     │   └── user.md       # Learned user preferences
-    ├── personas/         # specialized agent profiles
+    ├── personas/         # Specialized agent profiles
     │   └── qa.md         # e.g. "QA Engineer" hat
     ├── skills/           # Executable capabilities (agentskills.io compliant)
     │   └── database-migration/
@@ -52,50 +53,13 @@ This standard separates concerns into a router file and a context directory.
         └── feature_x.md
 ```
 
-### Relation to Agent Skills (agentskills.io)
-
-**dotagents** and the **Agent Skills** standard are complementary, not competitive. Think of **Agent Skills** as the *format* (like MP3) and **dotagents** as the *architecture* (like your Music library folder).
-
-| Feature | Agent Skills (agentskills.io) | dotagents |
-| :--- | :--- | :--- |
-| **Primary Goal** | **Standardize Behavior.** Defines the `SKILL.md` format (YAML+Markdown) for specific workflows. | **Standardize Organization.** Defines a unified directory structure for *all* agent data. |
-| **Scope** | **Skill-Local.** References are specific to the skill (e.g., `git-deploy/references/flags.md`). | **Project-Wide.** Context is global to the project (e.g., `.agents/context/schema.sql`). |
-| **Implementation** | **Vendor-Fragmented.** Often leads to duplication across `.claude/`, `.cursor/`, etc. | **Vendor-Agnostic.** A single `.agents/` folder acting as the unified source of truth. |
-
-**Solving vendor folder sprawl**
-
-Without `dotagents`, supporting multiple tools often requires duplicating skills:
-
-```text
-my-project/
-├── .claude/skills/       # <--- Duplicate Skill A
-├── .cursor/skills/       # <--- Duplicate Skill A
-└── .vscode/skills/       # <--- Duplicate Skill A
-```
-
-With `dotagents`, you have a **Unified Source of Truth**:
-
-```text
-my-project/
-├── AGENTS.md
-└── .agents/
-    ├── skills/           # <--- Unified library (fully compatible with agentskills.io)
-    │   ├── deploy/
-    │   │   ├── SKILL.md
-    │   │   └── scripts/
-    │   └── test/
-    │       └── SKILL.md
-    ├── context/          # (Project-wide context, distinct from skill-local refs)
-    └── memory/
-```
-
 ---
 
 ## Usage
 
 ### 1. The root file (`AGENTS.md`)
 
-This file defines the persona and routes the agent to relevant sub-files in `.agents/`. It should be kept small to minimize token overhead.
+The heart of the standard. This file defines the agent's identity and provides instructions on where to find specific information. By keeping this file small, you save tokens and maintain clarity.
 
 **Example `AGENTS.md`:**
 
@@ -114,40 +78,51 @@ You are a Senior Rust Engineer focused on safety and performance.
 - You may execute scripts found in `.agents/skills/` to validate your work.
 ```
 
-### 2. The `.agents` directory
+### 2. The `.agents/` directory (Ideas for organization)
 
-This directory organizes implementation details, allowing for progressive disclosure—loading only files necessary for the current task.
+This directory is where you store the "heavy" context. By organizing it logically, you enable **Progressive Disclosure**—loading only what is necessary for the task at hand.
 
-#### `.agents/personas/`
+#### Personas
+*Recommended for: Specialized roles.*
+Store specialized agent "hats" (e.g., `qa.md`, `architect.md`) here. You can instruct your agent to "adopt the QA persona found in `.agents/personas/qa.md`" when it's time to test.
 
-*Use for: Specialized roles.*
-Switch between different agent "hats" (e.g., `qa.md`, `architect.md`) by instructing the agent to load a specific persona file.
+#### Logs
+*Recommended for: Audit & Debugging.*
+Keep a clean root by storing session logs, agent thought traces, or execution history in a dedicated folder.
 
-#### `.agents/logs/`
+#### Memory
+*Recommended for: Long-term knowledge.*
+A place for agents to persist what they've learned about your preferences or the project's history (e.g., `.agents/memory/decisions.md`).
 
-*Use for: Audit & Debugging.*
-A place to store session logs or agent thought traces for review, keeping the root clean.
+#### Skills
+*Recommended for: Executable capabilities.*
+This directory is a perfect home for [agentskills.io](https://agentskills.io) compliant skills. Place your `SKILL.md` folders here alongside their supporting scripts.
 
-#### `.agents/memory/`
+#### Context & Specs
+*Recommended for: Static & Active data.*
+Keep your database schemas, API specs, and current feature requirements organized so the agent knows exactly where to look.
 
-*Use for: Long-term knowledge.*
-Agents can update files like `.agents/memory/coding_preferences.md` to persist user corrections or preferences.
+---
 
-#### `.agents/skills/`
+## Relation to Agent Skills (agentskills.io)
 
-*Use for: Agent capabilities.*
-This directory is fully compatible with the [agentskills.io](https://agentskills.io) standard. Place your `SKILL.md` folders here alongside verified scripts (MCP tools, shell scripts, Makefiles) that the agent is permitted to execute.
+**dotagents** and the **Agent Skills** standard are complementary. **Agent Skills** defines the *format* (how a skill is written), while **dotagents** defines the *architecture* (where it lives in your project).
+
+| Feature | Agent Skills (agentskills.io) | dotagents |
+| :--- | :--- | :--- |
+| **Primary Goal** | **Standardize Behavior.** Defines the `SKILL.md` format for specific workflows. | **Standardize Organization.** Defines a unified directory structure for *all* agent data. |
+| **Scope** | **Skill-Local.** References are specific to the skill. | **Project-Wide.** Context is global to the project. |
+| **Implementation** | **Vendor-Fragmented.** Can lead to duplication across `.claude/`, `.cursor/`, etc. | **Vendor-Agnostic.** A single source of truth for all tools. |
 
 ---
 
 ## FAQ
 
 **Why not use `.github/`?**
-`.github` is platform-specific. `dotagents` is designed to be platform-agnostic, usable by local LLMs, IDE agents, and CLI agents.
+`.github` is platform-specific. `dotagents` is designed to be platform-agnostic, usable by local LLMs, IDE agents, and CLI agents alike.
 
 **Should `.agents/` be committed?**
-Yes. This context is valuable for team alignment. Personal preferences (e.g., `.agents/memory/user.md`) should be gitignored.
+Generally, yes. This context is valuable for team alignment. Personal preferences (e.g., `.agents/memory/user.md`) should usually be gitignored.
 
 **Why use this standard?**
-1.  **Efficiency:** Encourages referencing files only when needed ("context routing") rather than loading everything at once.
-2.  **Safety:** Standardizing a `skills/` folder provides a predictable location for executable scripts.
+It's about **efficiency** and **cleanliness**. It encourages referencing files only when needed ("context routing") and prevents the explosion of vendor-specific configuration folders in your project root.
